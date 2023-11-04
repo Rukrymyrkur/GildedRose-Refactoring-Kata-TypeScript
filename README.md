@@ -11,6 +11,7 @@ npm install
 ```
 
 ## Running app
+
 _You may need to install `ts-node`_
 
 ```sh
@@ -18,6 +19,7 @@ npx ts-node test/golden-master-text-test.ts
 ```
 
 Or with number of days as args:
+
 ```sh
 npx ts-node test/golden-master-text-test.ts 10
 ```
@@ -42,4 +44,12 @@ npm run test:jest:watch
 
 ```sh
 npm run test:mocha
+```
+
+## Item updater
+
+To update items in the shop, run
+
+```sh
+npm start -- 10 5
 ```

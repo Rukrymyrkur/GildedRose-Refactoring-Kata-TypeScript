@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Gilded Rose kata in TypeScript",
   "scripts": {
+    "start": "ts-node ./app/item-updater.ts",
     "precompile": "rimraf app/**/*.js test/**/*.js",
     "compile": "tsc",
     "pretest": "rimraf app/**/*.js test/**/*.js",
@@ -31,5 +32,8 @@
     "typescript": "^4.4.4",
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "^0.28.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
   }
 }
