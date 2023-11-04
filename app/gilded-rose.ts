@@ -17,7 +17,24 @@ export class GildedRose {
     this.items = items;
   }
 
-  updateConjuredItem(item: Item) {}
+  updateConjuredItem(item: Item) {
+    // quality decreases twice as fast
+    if (item.quality > 0) {
+      item.quality -= 2;
+    }
+
+    item.sellIn -= 1;
+
+    // when the sellIn, quality decreases twice as fast
+    if (item.sellIn < 0 && item.quality > 0) {
+      item.quality -= 2;
+    }
+
+    // quality will not be negative
+    if (item.quality < 0) {
+      item.quality = 0;
+    }
+  }
 
   updateAgedBrie(item: Item) {
     if (item.quality < 50) {
@@ -57,11 +74,26 @@ export class GildedRose {
       }
     }
 
-    // every other time decrease sellIn
+    // every other times decrease sellIn
     item.sellIn -= 1;
   }
 
   updateGeneralItem(item: Item) {
+    // decrease quality by 1
+    if (item.quality > 0) {
+      item.quality -= 1;
+    }
+
+    // decrease sellIn by 1
+    item.sellIn -= 1;
+
+    // when the sellIn passes, quality decreases twice as fast
+    if (item.sellIn < 0 && item.quality > 0) {
+      item.quality -= 1;
+    }
+  }
+
+  updateGeneralItem2(item: Item) {
     if (item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert') {
       if (item.quality > 0) {
         if (item.name != 'Sulfuras, Hand of Ragnaros') {
@@ -119,11 +151,13 @@ export class GildedRose {
         case 'Backstage passes to a TAFKAL80ETC concert':
           this.updateBackstagePass(item);
           break;
+        case 'Conjured Mana Cake':
+          this.updateConjuredItem(item);
+          break;
         default:
           this.updateGeneralItem(item);
           break;
       }
-      // });
     });
 
     return this.items;

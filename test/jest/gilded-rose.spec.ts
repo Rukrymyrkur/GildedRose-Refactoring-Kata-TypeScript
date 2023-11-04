@@ -101,11 +101,33 @@ describe('Gilded Rose', () => {
     expect(updatedItems[0].quality).toBe(0);
   });
 
-  it.skip('should decrease Quality twice as fast for Conjured items', () => {
+  it('should decrease Quality twice as fast for Conjured items', () => {
     const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 3, 6)]);
     const updatedItems = gildedRose.updateQuality();
 
     expect(updatedItems[0].sellIn).toBe(2);
-    expect(updatedItems[0].quality).toBe(4); // decrease by 2 ?
+    expect(updatedItems[0].quality).toBe(4);
+  });
+
+  it('should decrease Quality by 4 for Conjured items when SellIn date has passed', () => {
+    const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 0, 6)]);
+    const updatedItems = gildedRose.updateQuality();
+
+    expect(updatedItems[0].sellIn).toBe(-1);
+    expect(updatedItems[0].quality).toBe(2);
+  });
+
+  it('should not decrease Quality below 0 for Conjured items', () => {
+    const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 3, 1)]);
+    const updatedItems = gildedRose.updateQuality();
+
+    expect(updatedItems[0].quality).toBe(0);
+  });
+
+  it('should not decrease Quality below 0 for Conjured items even after SellIn date', () => {
+    const gildedRose = new GildedRose([new Item('Conjured Mana Cake', 0, 3)]);
+    const updatedItems = gildedRose.updateQuality();
+
+    expect(updatedItems[0].quality).toBe(0);
   });
 });
